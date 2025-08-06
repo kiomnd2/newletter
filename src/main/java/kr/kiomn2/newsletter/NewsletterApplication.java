@@ -1,4 +1,4 @@
-package kr.kiomn2.newsletter.newsletter;
+package kr.kiomn2.newsletter;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
