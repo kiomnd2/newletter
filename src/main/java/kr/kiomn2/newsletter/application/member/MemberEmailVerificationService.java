@@ -12,9 +12,12 @@ import org.springframework.stereotype.Service;
 public class MemberEmailVerificationService implements EmailVerifier {
     private final EmailSender emailSender;
 
+
     @Override
     public void sendVerificationCode(String email) {
         log.info("send verification code to {}", email);
+
+
 
         // redis 저장
 

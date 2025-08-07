@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class EmailSenderImpl implements EmailSender {
+public class VerificationEmailSender implements EmailSender {
 
     @Override
     public void sendEmail(String email, String message) {

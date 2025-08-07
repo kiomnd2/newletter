@@ -15,6 +15,7 @@ import org.springframework.validation.annotation.Validated;
 @Service
 public class MemberCommandService implements MemberRegister {
     private final MemberRepository memberRepository;
+    private final MemberEmailVerificationService memberEmailVerificationService;
 
     @Transactional
     @Override
@@ -22,6 +23,8 @@ public class MemberCommandService implements MemberRegister {
         checkDuplicateEmail(memberRegisterCommand);
 
         Member register = Member.register(memberRegisterCommand);
+
+        memberEmailVerificationService.sendVerificationCode(register.getEmail());
 
         return memberRepository.save(register);
     }
