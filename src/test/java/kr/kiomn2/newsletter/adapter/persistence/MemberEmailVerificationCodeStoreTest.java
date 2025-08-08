@@ -10,6 +10,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @SpringBootTest
 @ActiveProfiles("test")
 @Import(EmbeddedRedisTestConfig.class)
@@ -23,8 +25,12 @@ class MemberEmailVerificationCodeStoreTest {
     void storeEmailVerificationCodeTest() {
         MemberEmailVerificationCodeStore codeStore = new MemberEmailVerificationCodeStore(redisTemplate);
 
-        codeStore.storeCode("kiomnd@test.com", "123456");
+        String mockCode = "123456";
 
+        codeStore.storeCode("kiomnd@test.com", mockCode);
 
+        String result = redisTemplate.opsForValue().get("email_verification:kiomnd@test.com");
+
+        assertThat(result).isEqualTo(mockCode);
     }
 }
