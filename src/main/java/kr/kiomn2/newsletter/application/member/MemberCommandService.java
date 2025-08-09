@@ -29,12 +29,14 @@ public class MemberCommandService implements MemberRegister {
         return memberRepository.save(register);
     }
 
+    @Transactional
     @Override
     public Member verifyEmail(Long id, String verificationCode) {
         Member member = memberRepository.findById(id).orElseThrow();
 
         memberEmailVerificationService.checkVerificationCode(member.getEmail(), verificationCode);
 
+        member.verifyEmail();
         return member;
     }
 

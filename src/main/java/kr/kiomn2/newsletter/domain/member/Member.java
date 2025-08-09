@@ -44,4 +44,9 @@ public class Member {
         member.registerAt = LocalDateTime.now();
         return member;
     }
+
+    public void verifyEmail() {
+        this.emailVerifiedAt = LocalDateTime.now();
+        this.status = MemberStatus.ACTIVE;
+    }
 }
