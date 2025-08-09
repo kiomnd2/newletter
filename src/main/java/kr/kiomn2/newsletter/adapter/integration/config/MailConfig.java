@@ -1,5 +1,6 @@
 package kr.kiomn2.newsletter.adapter.integration.config;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.mail.MailProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -10,12 +11,12 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
 
+@RequiredArgsConstructor
 @Configuration
 @EnableConfigurationProperties(MailProperties.class)
 public class MailConfig {
 
-    @Autowired
-    private MailProperties mailProperties;
+    private final MailProperties mailProperties;
 
     @Bean
     public JavaMailSender javaMailSender() {

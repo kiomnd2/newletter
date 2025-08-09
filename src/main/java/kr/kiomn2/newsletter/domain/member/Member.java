@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Member {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String email;
@@ -23,10 +23,10 @@ public class Member {
 
     private String nickname;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated
     private MemberStatus status;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated
     private MemberRole role;
 
     private LocalDateTime registerAt;
