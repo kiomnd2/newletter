@@ -1,6 +1,6 @@
 package kr.kiomn2.newsletter.application.member;
 
-import kr.kiomn2.newsletter.adapter.persistence.MemberEmailVerificationCodeStore;
+import kr.kiomn2.newsletter.adapter.persistence.MemberEmailVerificationCodeRepository;
 import kr.kiomn2.newsletter.adapter.persistence.config.EmbeddedRedisTestConfig;
 import kr.kiomn2.newsletter.application.member.required.EmailSender;
 import org.junit.jupiter.api.Test;
@@ -11,7 +11,6 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ActiveProfiles("test")
 @Import(EmbeddedRedisTestConfig.class)
@@ -19,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberEmailVerificationServiceTest {
 
     @Autowired
-    private MemberEmailVerificationCodeStore memberEmailVerificationCodeStore;
+    private MemberEmailVerificationCodeRepository memberEmailVerificationCodeStore;
 
     @Autowired
     RedisTemplate<String, String> redisTemplate;

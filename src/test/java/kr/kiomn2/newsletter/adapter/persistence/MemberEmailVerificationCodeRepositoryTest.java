@@ -1,7 +1,6 @@
 package kr.kiomn2.newsletter.adapter.persistence;
 
 import kr.kiomn2.newsletter.adapter.persistence.config.EmbeddedRedisTestConfig;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,14 +15,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 @Import(EmbeddedRedisTestConfig.class)
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-class MemberEmailVerificationCodeStoreTest {
+class MemberEmailVerificationCodeRepositoryTest {
 
     @Autowired
     private RedisTemplate<String,String> redisTemplate;
 
     @Test
     void storeEmailVerificationCodeTest() {
-        MemberEmailVerificationCodeStore codeStore = new MemberEmailVerificationCodeStore(redisTemplate);
+        MemberEmailVerificationCodeRepository codeStore = new MemberEmailVerificationCodeRepository(redisTemplate);
 
         String mockCode = "123456";
 

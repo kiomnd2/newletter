@@ -1,6 +1,6 @@
 package kr.kiomn2.newsletter.application.member;
 
-import kr.kiomn2.newsletter.adapter.persistence.MemberEmailVerificationCodeStore;
+import kr.kiomn2.newsletter.adapter.persistence.MemberEmailVerificationCodeRepository;
 import kr.kiomn2.newsletter.application.member.provided.EmailVerifier;
 import kr.kiomn2.newsletter.application.member.required.EmailSender;
 import kr.kiomn2.newsletter.application.member.utils.VerificationCodeGenerator;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MemberEmailVerificationService implements EmailVerifier {
     private final EmailSender emailSender;
-    private final MemberEmailVerificationCodeStore verificationCodeStore;
+    private final MemberEmailVerificationCodeRepository verificationCodeRepository;
 
 
     @Override
@@ -23,10 +23,21 @@ public class MemberEmailVerificationService implements EmailVerifier {
         String verificationCode = VerificationCodeGenerator.createVerificationCode();
 
         // redis 저장
-        verificationCodeStore.storeCode(email, verificationCode);
+        verificationCodeRepository.storeCode(email, verificationCode);
 
         // 이메일 전송
         emailSender.sendEmail(email, verificationCode);
+    }
+
+    @Override
+    public void checkVerificationCode(String email, String verificationCode) {
+        String findCode = verificationCodeRepository
+                .readCode(email)
+                .orElseThrow(() -> new IllegalStateException("인증코드가 만료되었거나 찾을 수 없습니다 " + verificationCode));
+
+        if (!findCode.equals(verificationCode)) {
+            throw new IllegalStateException("인증코드가 일치하지 않습니다.");
+        }
     }
 
 

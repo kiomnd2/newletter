@@ -1,13 +1,15 @@
 package kr.kiomn2.newsletter.adapter.persistence;
 
-import kr.kiomn2.newsletter.application.member.required.VerificationCodeStore;
+import kr.kiomn2.newsletter.application.member.required.VerificationCodeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Component
-public class MemberEmailVerificationCodeStore implements VerificationCodeStore {
+public class MemberEmailVerificationCodeRepository implements VerificationCodeRepository {
     private final RedisTemplate<String, String> emailVerificationRedisTemplate;
     private static final String EMAIL_VERIFICATION_PREFIX = "email_verification:";
 
@@ -16,4 +18,11 @@ public class MemberEmailVerificationCodeStore implements VerificationCodeStore {
         String key = EMAIL_VERIFICATION_PREFIX + email;
         emailVerificationRedisTemplate.opsForValue().set(key, code);
     }
+
+    @Override
+    public Optional<String> readCode(String email) {
+        return Optional.ofNullable(emailVerificationRedisTemplate.opsForValue().get(EMAIL_VERIFICATION_PREFIX + email));
+    }
+
+
 }

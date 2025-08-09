@@ -29,6 +29,15 @@ public class MemberCommandService implements MemberRegister {
         return memberRepository.save(register);
     }
 
+    @Override
+    public Member verifyEmail(Long id, String verificationCode) {
+        Member member = memberRepository.findById(id).orElseThrow();
+
+        memberEmailVerificationService.checkVerificationCode(member.getEmail(), verificationCode);
+
+        return member;
+    }
+
     private void checkDuplicateEmail(MemberCommand.MemberRegister registerRequest) {
         if (memberRepository.findByEmail(registerRequest.email()).isPresent()) {
             throw new DuplicateEmailException("이미 사용중인 이메일입니다. " + registerRequest.email());
