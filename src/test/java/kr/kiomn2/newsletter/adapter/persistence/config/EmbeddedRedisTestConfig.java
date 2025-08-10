@@ -23,16 +23,16 @@ public class EmbeddedRedisTestConfig {
 
     @PostConstruct
     public void startRedis() throws IOException {
-        int port = findAvailablePort();
+//        int port = findAvailablePort();
         redisServer = RedisServer.builder()
-                .port(port)
+                .port(redisPort)
                 .build();
 
-        System.setProperty("spring.data.redis.port", String.valueOf(port));
+        System.setProperty("spring.data.redis.port", String.valueOf(redisPort));
         System.setProperty("spring.data.redis.host", "localhost");
         redisServer.start();
 
-        System.out.println("startRedisServer localhost : " + port);
+        System.out.println("startRedisServer localhost : " + redisPort);
     }
 
     @PreDestroy
