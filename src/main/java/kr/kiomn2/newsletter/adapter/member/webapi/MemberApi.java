@@ -32,5 +32,7 @@ public class MemberApi {
                         .id(member.getId())
                 .build());
     }
+
+    
 }
 

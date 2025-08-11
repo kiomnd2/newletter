@@ -2,6 +2,7 @@ package kr.kiomn2.newsletter.domain.member;
 
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
+import kr.kiomn2.newsletter.domain.member.subscriber.Subscriber;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Table(name = "members ")
 public class Member {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +27,6 @@ public class Member {
 
     @Enumerated
     private MemberStatus status;
-
-    @Enumerated
-    private MemberRole role;
 
     private LocalDateTime registerAt;
 

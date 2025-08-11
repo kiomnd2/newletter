@@ -37,6 +37,7 @@ public class MemberCommandService implements MemberRegister {
         memberEmailVerificationService.checkVerificationCode(member.getEmail(), verificationCode);
 
         member.verifyEmail();
+
         return member;
     }
 

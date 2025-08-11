@@ -6,12 +6,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
+@Table(name = "news_categories")
 public class NewsCategory {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,22 +23,13 @@ public class NewsCategory {
 
     private String iconUrl;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "parent_id")
-    private NewsCategory parent;
-
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<NewsCategory> children;
-
-    private Integer order;
+    private Integer categoryOrder;
 
     private Boolean active;
 
     private Long articleCount = 0L;
 
-    private Long subCategoryCount = 0L;
-
-
+    private Long subscriberCount = 0L;
 
     private LocalDateTime createdAt;
 
