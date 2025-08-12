@@ -45,8 +45,6 @@ class MemberApiTest {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
-    @MockBean
-    private EmailSender emailSender;
 
     @Test
     void registerMemberApiRegisterMemberTest() throws Exception {

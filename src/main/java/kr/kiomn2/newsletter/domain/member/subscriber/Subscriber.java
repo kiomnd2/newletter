@@ -28,8 +28,6 @@ public class Subscriber {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private Boolean active;
-
     private SubscriptionStatus subscriptionStatus;
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -43,12 +41,32 @@ public class Subscriber {
 
     private LocalDateTime updatedAt;
 
+    private LocalDateTime lastEmailSentAt;
+
+
     public static Subscriber apply(Member member) {
         Subscriber subscriber = new Subscriber();
         subscriber.member = member;
-        subscriber.active = true;
+        subscriber.subscriptionStatus = SubscriptionStatus.ACTIVE;
         subscriber.createdAt = LocalDateTime.now();
         subscriber.updatedAt = LocalDateTime.now();
         return subscriber;
+    }
+
+    public void addSubscribedCategory(String categoryCode) {
+        this.subscribedCategories.add(categoryCode);
+    }
+
+    public void allUnsubscribe() {
+        this.subscribedCategories.clear();
+        this.subscriptionStatus = SubscriptionStatus.UNSUBSCRIBED;
+    }
+
+    public void pause() {
+        this.subscriptionStatus = SubscriptionStatus.PAUSED;
+    }
+
+    public void resume() {
+        this.subscriptionStatus = SubscriptionStatus.ACTIVE;
     }
 }

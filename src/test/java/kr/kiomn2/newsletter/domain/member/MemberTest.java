@@ -18,7 +18,7 @@ record MemberTest() {
 
         assertThat(registeredMember.getEmail()).isEqualTo(member.email());
         assertThat(registeredMember.getNickname()).isEqualTo(member.nickname());
-        assertThat(registeredMember.getRole()).isNull();
+        assertThat(registeredMember.getRoles()).isNull();
         assertThat(registeredMember.getStatus()).isEqualTo(MemberStatus.PENDING);
     }
 }

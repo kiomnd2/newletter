@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -25,7 +27,12 @@ public class Member {
 
     private String nickname;
 
-    @Enumerated
+    @ElementCollection
+    @CollectionTable(name = "member_roles", joinColumns = @JoinColumn(name = "member_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<MemberRole> roles = new HashSet<>();
+
+    @Enumerated(EnumType.STRING)
     private MemberStatus status;
 
     private LocalDateTime registerAt;
@@ -48,4 +55,17 @@ public class Member {
         this.emailVerifiedAt = LocalDateTime.now();
         this.status = MemberStatus.ACTIVE;
     }
+
+    public boolean isEmailVerified() {
+        return this.emailVerifiedAt != null;
+    }
+
+    public boolean hasRole(MemberRole role) {
+        return this.roles.contains(role);
+    }
+
+    public void addRole(MemberRole role) {
+        this.roles.add(role);
+    }
+
 }
