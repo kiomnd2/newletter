@@ -7,4 +7,8 @@ public class MemberCommand {
     public record MemberRegister(
             @NotNull @Email String email, @NotNull @Size(min = 4, max = 20) String password, @NotNull @Size(min = 5, max = 20) String nickname
     ){ }
+
+    public record ApplySubscriber(
+            @NotNull @Email String email) {
+    }
 }

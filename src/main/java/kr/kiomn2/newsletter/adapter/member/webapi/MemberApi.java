@@ -7,6 +7,7 @@ import kr.kiomn2.newsletter.adapter.member.common.response.dto.MemberResponse;
 import kr.kiomn2.newsletter.application.member.MemberCommandService;
 import kr.kiomn2.newsletter.domain.member.Member;
 import kr.kiomn2.newsletter.domain.member.MemberCommand;
+import kr.kiomn2.newsletter.domain.member.subscriber.Subscriber;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +34,14 @@ public class MemberApi {
                 .build());
     }
 
-    
+    @PostMapping("/subscription")
+    public CommonResponse<MemberResponse.ApplySubscriber> applySubscriber(
+            @Valid @RequestBody MemberCommand.ApplySubscriber applySubscriber) {
+        Subscriber subscriber = memberCommandService.applySubscriber(applySubscriber.email());
+        return CommonResponse.success(MemberResponse.ApplySubscriber.builder()
+                        .email(subscriber.getMember().getEmail())
+                        .id(subscriber.getId())
+                .build());
+    }
 }
 
