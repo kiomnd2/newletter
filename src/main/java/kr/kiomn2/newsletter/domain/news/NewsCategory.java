@@ -23,8 +23,6 @@ public class NewsCategory {
 
     private String iconUrl;
 
-    private Integer categoryOrder;
-
     private Boolean active;
 
     private Long articleCount = 0L;
@@ -34,5 +32,34 @@ public class NewsCategory {
     private LocalDateTime createdAt;
 
     private LocalDateTime updatedAt;
+
+    public static NewsCategory create(NewCategoryCommand.CreateNewCategory requestCreate) {
+        NewsCategory newsCategory = new NewsCategory();
+        newsCategory.name = requestCreate.name();
+        newsCategory.description = requestCreate.description();
+        newsCategory.iconUrl = requestCreate.iconUrl();
+        newsCategory.active = true;
+        newsCategory.createdAt = LocalDateTime.now();
+        newsCategory.updatedAt = LocalDateTime.now();
+        return newsCategory;
+    }
+
+    public void increaseArticleCount() {
+        this.articleCount++;
+    }
+
+    public void decreaseArticleCount() {
+        if (this.articleCount > 0) {
+            this.articleCount--;
+        }
+    }
+
+    public void inActivate() {
+    	this.active = false;
+    }
+
+    public void activate() {
+        this.active = true;
+    }
 }
 
